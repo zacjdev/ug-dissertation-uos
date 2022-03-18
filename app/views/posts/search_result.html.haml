@@ -1,0 +1,17 @@
+- content_for :title, 'Results'
+.card
+  .card-header
+    Search results
+  %table.table
+    %thead
+      %tr
+        %th Title
+        %th Author
+    %tbody
+      - @posts.each do |post|
+        %tr
+          %td= post.title
+          %td= post.author_name
+          
+
+

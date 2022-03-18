@@ -1,0 +1,64 @@
+!!!
+%html
+  %head
+    %title Security - #{content_for(:title)}
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
+    = stylesheet_pack_tag "styles", media: :all
+    = javascript_pack_tag "application"
+    = favicon_link_tag '/favicon.ico'
+    = csrf_meta_tags
+
+  %body
+    %header.navbar.navbar-expand-lg.navbar-light.bg-light.mb-3
+      .container
+        %button.navbar-toggler{ type: :button, data: { bs_toggle: :collapse, bs_target: '#nav-content' }, aira: { controls: 'nav-content', expanded: false, label: 'Toggle navigation' } }
+          %span.navbar-toggler-icon
+
+        #nav-content.collapse.navbar-collapse
+          %nav.navbar-nav
+            - if user_signed_in?
+
+              = link_to 'Posts', root_path, title: 'Go to the home page', class: "nav-link #{'active' if @current_nav_identifier == :home}"
+
+              = link_to 'Search', search_posts_path, title: 'Go to the search page', class: "nav-link #{'active' if @current_nav_identifier == :search}"
+
+              - if can?(:edit, Category)
+                = link_to 'Categories', categories_path, title: 'Go to the search page', class: "nav-link #{'active' if @current_nav_identifier == :categories}"
+
+              - if can?(:read, :audit_log)
+                = link_to 'Audit Log', audits_path, title: 'Go to the audit log page', class: "nav-link #{'active' if @current_nav_identifier == :audits}"
+
+              = link_to 'Edit my details', [:edit, current_user], title: 'Edit your user details', class: "nav-link #{'active' if @current_nav_identifier == :users}"
+
+          %nav.navbar-nav.ms-auto
+            - if user_signed_in?
+              .nav-item.dropdown
+                %a.nav-link.dropdown-toggle{ href: '#', data: { bs_toggle: :dropdown }, aria: { expanded: false } }
+                  = current_user.email
+                %nav.dropdown-menu.dropdown-menu-lg-end
+                  = link_to 'Sign out', destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system"
+            - else
+              = link_to 'Log in', new_user_session_path, class: 'nav-link'
+
+    .flash-messages
+      - flash.each do |name, msg|
+        - next unless name == 'alert' || name == 'notice'
+        .alert.alert-info
+          .container
+            = msg
+            %a{ href: '#', title: 'Hide this message', data: { bs_dismiss: :alert } } Dismiss
+
+    %main
+      .container= yield
+
+    %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
+      %p.mb-1 &copy; epiGenesys #{Date.today.year}
+      %ul.list-inline
+        %li.list-inline-item
+          = link_to 'epiGenesys', 'https://www.epigenesys.org.uk', target: '_blank', title: 'Go to the epiGenesys website'
+        %li.list-inline-item
+          %a{:href => "#"} Terms
+        %li.list-inline-item
+          %a{:href => "#"} Support

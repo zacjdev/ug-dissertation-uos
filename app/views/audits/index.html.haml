@@ -1,0 +1,60 @@
+- content_for :title, 'Audit log'
+
+%ul.nav.nav-tabs
+  %li.nav-item
+    = link_to 'Changes', '#changes', data: { bs_toggle: 'tab' }, class: 'nav-link active'
+  %li.nav-item
+    = link_to 'Views', '#views', data: { bs_toggle: 'tab' }, class: 'nav-link'
+
+.tab-content.mt-3
+  #changes.tab-pane.active
+    .card
+      .card-header
+        Audit log
+      - if @audits.empty?
+        .card-body
+          No audits recorded
+      - else
+        %table.table
+          %thead
+            %tr
+              %th Who
+              %th What
+              %th Changes
+
+
+          %tbody
+            - @audits.each do |audit|
+              %tr
+                %td= audit.user.try(:email)
+                %td= audit.auditable_type
+                %td
+                  %ul
+                  - audit.audited_changes.each do |field, (from, to)|
+                    %li
+                      %strong  #{field.capitalize}
+                      From: #{from} - To: #{to}
+  #views.tab-pane
+    .card
+      .card-header
+        Audit log
+      - if @page_views.empty?
+        .card-body
+          No page views recorded
+      - else
+        %table.table
+          %thead
+            %tr
+              %th Who
+              %th Controller
+              %th Action
+              %th Resource ID
+
+
+          %tbody
+            - @page_views.each do |page_view|
+              %tr
+                %td= page_view.user.try(:email)
+                %td= page_view.controller_name
+                %td= page_view.controller_action
+                %td= page_view.resource_id

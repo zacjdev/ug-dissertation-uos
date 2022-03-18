@@ -1,0 +1,13 @@
+- content_for :title, "Edit my details"
+
+.card
+  .card-header
+    Edit my details 
+  = simple_form_for(@user, html: { id: 'user-form' } ) do |f|
+    .card-body
+      = f.input :name
+      = f.input :email
+
+    .card-footer
+      = f.button :submit, class: 'btn btn-primary'
+    
