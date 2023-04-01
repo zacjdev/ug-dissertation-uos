@@ -15,6 +15,7 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
+#  role                   :string
 #
 # Indexes
 #
@@ -26,6 +27,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # Task 10
+  
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :secure_validatable, :lockable
+  
 end

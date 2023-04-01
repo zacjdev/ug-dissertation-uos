@@ -20,9 +20,9 @@
           %nav.navbar-nav
             - if user_signed_in?
 
-              = link_to 'Posts', root_path, title: 'Go to the home page', class: "nav-link #{'active' if @current_nav_identifier == :home}"
+              /= link_to 'Posts', root_path, title: 'Go to the home page', class: "nav-link #{'active' if @current_nav_identifier == :home}"
 
-              = link_to 'Search', search_posts_path, title: 'Go to the search page', class: "nav-link #{'active' if @current_nav_identifier == :search}"
+              /= link_to 'Search', search_posts_path, title: 'Go to the search page', class: "nav-link #{'active' if @current_nav_identifier == :search}"
 
               - if can?(:edit, Category)
                 = link_to 'Categories', categories_path, title: 'Go to the search page', class: "nav-link #{'active' if @current_nav_identifier == :categories}"
@@ -34,11 +34,8 @@
 
           %nav.navbar-nav.ms-auto
             - if user_signed_in?
-              .nav-item.dropdown
-                %a.nav-link.dropdown-toggle{ href: '#', data: { bs_toggle: :dropdown }, aria: { expanded: false } }
-                  = current_user.email
-                %nav.dropdown-menu.dropdown-menu-lg-end
-                  = link_to 'Sign out', destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system"
+              %p= current_user.role
+              = link_to 'Sign out', destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system"
             - else
               = link_to 'Log in', new_user_session_path, class: 'nav-link'
 

@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
 
   # Task 1
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
@@ -38,4 +39,8 @@ class ApplicationController < ActionController::Base
     def ie_warning
       return redirect_to(ie_warning_path) if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ /Trident\/7.0/
     end
+
+    def configure_permitted_parameters
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :username, :role])
+   end
 end

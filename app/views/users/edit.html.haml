@@ -7,6 +7,7 @@
     .card-body
       = f.input :name
       = f.input :email
+      = f.input :role , as: :radio_buttons, collection: ['student', 'lecturer', 'facilitator']
 
     .card-footer
       = f.button :submit, class: 'btn btn-primary'
