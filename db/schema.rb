@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_23_111545) do
+ActiveRecord::Schema.define(version: 2023_04_07_142003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,11 @@ ActiveRecord::Schema.define(version: 2022_02_23_111545) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "modules", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+  end
+
   create_table "page_views", id: :serial, force: :cascade do |t|
     t.integer "user_id"
     t.string "controller_name"
@@ -72,6 +77,13 @@ ActiveRecord::Schema.define(version: 2022_02_23_111545) do
     t.string "cas_ticket"
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "teams_users", id: false, force: :cascade do |t|
+    t.bigint "team_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["team_id", "user_id"], name: "index_teams_users_on_team_id_and_user_id"
+    t.index ["user_id", "team_id"], name: "index_teams_users_on_user_id_and_team_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
