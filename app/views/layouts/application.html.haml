@@ -30,7 +30,8 @@
               - if can?(:read, :audit_log)
                 = link_to 'Audit Log', audits_path, title: 'Go to the audit log page', class: "nav-link #{'active' if @current_nav_identifier == :audits}"
 
-              = link_to 'Edit my details', [:edit, current_user], title: 'Edit your user details', class: "nav-link #{'active' if @current_nav_identifier == :users}"
+              // link to root path
+              = link_to 'Home', root_path, title: 'Go to the home page', class: "nav-link #{'active' if @current_nav_identifier == :home}"
 
           %nav.navbar-nav.ms-auto
             - if user_signed_in?

@@ -1,0 +1,26 @@
+%div.container-fluid
+    %div.row 
+        = render 'nav'
+
+        %main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
+            %div.pt-3.pb-2.mb-3.border-bottom
+                %h1 Manage Surveys
+            // button to add new module
+            %div.container-fluid.p-1
+                %div.row
+                    %div.col-12
+                        %a{:href => "/lecturer/surveys/add"}
+                            %button.btn.btn-sm.btn-outline-primary
+                                %span.pl-3= "Add New Survey"
+            // table of modules
+            %div.container-fluid.p-1
+                %div.row
+                    %div.col-12
+                        %table.table.table-hover
+                            %thead
+                                %tr
+                                    %th Survey Name
+                                    %th View
+                                    %th Edit
+                                    %th Delete
+                            %tbody

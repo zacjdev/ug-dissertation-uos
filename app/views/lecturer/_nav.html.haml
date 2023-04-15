@@ -1,0 +1,44 @@
+-# import material icons
+%link{:rel => "stylesheet", :href => "https://fonts.googleapis.com/icon?family=Material+Icons"}
+
+%nav#sidebarMenu.col-md-4.col-lg-2.d-md-block.card.sidebar.collapse{ style: 'background: rgb(222, 222, 222)' }
+    %div.position-sticky.pt-3
+        %ul.nav.flex-column 
+            %li.nav-item
+                %a.nav-link{:href => '/dashboard'}
+                    %span.material-icons.text-primary
+                        = 'home'
+                    %span.h3
+                        Home
+                    
+                    
+            %li.nav-item
+                %a.nav-link{:href => "/lecturer/modules"}
+                    %span.material-icons.text-primary
+                        = 'library_books'
+                    %span.h3
+                        Modules
+                    
+            %li.nav-item
+                %a.nav-link{:href => "/lecturer/surveys"}
+                    %span.material-icons.text-primary
+                        = 'assignment'
+                    %span.h3
+                        Surveys
+
+            %li.nav-item
+                %a.nav-link{:href => "/lecturer/checklists"}
+                    %span.material-icons.text-primary
+                        = 'person_add'
+                    %span.h3
+                        Checklists
+
+            %li.nav-item
+                %a.nav-link{:href => "/lecturer/users"}
+                    %span.material-icons.text-primary
+                        = 'person_add'
+                    %span.h3
+                        Users
+
+            %span.mb-2
+                    

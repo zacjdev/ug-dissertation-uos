@@ -2,7 +2,7 @@ class IndexController < ApplicationController
     def index
       if current_user.role == 'student'
         redirect_to '/home'
-      elsif current_user.role == 'admin'
+      elsif current_user.role == 'lecturer' || current_user.role == 'facilitator'
         redirect_to '/dashboard'
       else
         render :'pages/no_access'

@@ -18,4 +18,18 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
 
   root to: "index#index"
+
+  
+  # route for the lecturer home page /dashboard
+  get "dashboard", to: "lecturer#home"
+
+  get "lecturer/surveys", to: "lecturer#surveys"
+  get "lecturer/checklists", to: "lecturer#checklists"
+  get "lecturer/users", to: "lecturer#users"
+  get "home", to: "students#home"
+
+  get "lecturer/modules/add", to: "cmodules#new"
+
+  get "lecturer/modules", to: "lecturer#modules"
+  resources 'cmodules', :only => [:new, :create, :show, :edit, :update, :destroy]
 end

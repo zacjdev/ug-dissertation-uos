@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_142003) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "modules", force: :cascade do |t|
+  create_table "cmodules", force: :cascade do |t|
     t.string "name"
     t.string "code"
   end
