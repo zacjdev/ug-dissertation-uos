@@ -1,0 +1,94 @@
+%div.container-fluid
+    %div.row 
+        -# import material icons
+        %link{:rel => "stylesheet", :href => "https://fonts.googleapis.com/icon?family=Material+Icons"}
+
+        %nav#sidebarMenu.col-md-4.col-lg-2.d-md-block.card.sidebar.collapse{ style: 'background: rgb(222, 222, 222)' }
+            %div.position-sticky.pt-3
+                %ul.nav.flex-column 
+                    %li.nav-item
+                        %a.nav-link{:href => '/dashboard'}
+                            %span.material-icons.text-primary
+                                = 'home'
+                            %span.h3
+                                Home
+                            
+                    %li.nav-item
+                        %a.nav-link{:href => "/lecturer/modules"}
+                            %span.material-icons.text-primary
+                                = 'library_books'
+                            %span.h3
+                                Modules
+                    
+                    - if current_user.role == "lecturer"
+                        %li.nav-item
+                            %a.nav-link{:href => "/lecturer/surveys"}
+                                %span.material-icons.text-primary
+                                    = 'assignment'
+                                %span.h3
+                                    Surveys
+
+                        %li.nav-item
+                            %a.nav-link{:href => "/lecturer/checklists"}
+                                %span.material-icons.text-primary
+                                    = 'person_add'
+                                %span.h3
+                                    Checklists
+
+                        %li.nav-item
+                            %a.nav-link{:href => "/lecturer/users"}
+                                %span.material-icons.text-primary
+                                    = 'person_add'
+                                %span.h3
+                                    Users
+
+            %span.mb-2
+                    
+
+        %main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
+            %div.pt-3.pb-2.mb-3.border-bottom
+                %h1= "Manage Module " + @cmodule.name + " (ID: " + @cmodule.id.to_s + ")"
+            // horizontal menu
+            %div.container-fluid.mx-0.px-0
+                %div.row
+                    %div.col-12
+                        %ul.nav.nav-tabs
+                            %li.nav-item
+                                %a.nav-link.active{"aria-current" => "page", :href => "#"} Module Details
+                            - if current_user.role == "lecturer"
+                                %li.nav-item
+                                %a.nav-link{"aria-current" => "page", :href => "/lecturer/add_team?m=" + @cmodule.id.to_s} Add Team
+                                %li.nav-item
+                                    %a.nav-link{"aria-current" => "page", :href => "/lecturer/assign_teams"} Assign Teams
+            // details of current module using @cmodule
+            %h1= @cmodule.name
+            // view team details
+            %div.container-fluid.p-1
+                %div.row
+                    %div.col-12
+                        %table.table.table-hover
+                            %thead
+                                %tr
+                                    %th Team ID
+                                    %th Module ID
+                                    %th View Team
+                            %tbody
+                                - @teams.each do |team|
+                                    
+                                    %tr
+                                        %td= team.id 
+                                        %td= team.name
+                                        %td= link_to 'View Team', "/lecturer/view_team/" + team.id.to_s, :class => "btn btn-sm btn-outline-primary"
+                                // REPORTS
+                        %table.table.table-hover
+                            %thead
+                                %tr
+                                    %th Report
+                                    %th Team
+                                    %th Content
+                            %tbody
+                                - @reports.each do |report|
+                                    %tr
+                                        %td= report.id
+                                        %td= report.team_id
+                                        %td= report.content

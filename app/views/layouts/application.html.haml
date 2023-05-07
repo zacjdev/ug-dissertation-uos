@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Security - #{content_for(:title)}
+    %title TeamManage - #{content_for(:title)}
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
     %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
@@ -52,11 +52,4 @@
       .container= yield
 
     %footer.mt-auto.my-5.pt-5.text-muted.text-center.text-small
-      %p.mb-1 &copy; epiGenesys #{Date.today.year}
-      %ul.list-inline
-        %li.list-inline-item
-          = link_to 'epiGenesys', 'https://www.epigenesys.org.uk', target: '_blank', title: 'Go to the epiGenesys website'
-        %li.list-inline-item
-          %a{:href => "#"} Terms
-        %li.list-inline-item
-          %a{:href => "#"} Support
+      %p.mb-1 &copy; Zac Jones #{Date.today.year}, Template provided by epiGenesys 

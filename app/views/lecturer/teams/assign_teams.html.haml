@@ -1,0 +1,8 @@
+%div.nav
+    %a{:href => "/lecturer/modules/#{@cmodule_id}"}
+        %button.btn.btn-sm.btn-outline-primary
+        %span.pl-3= "Back to module"
+%div.container
+    %h1 Assign module to user
+
+    = render 'lecturer/teams/assign_form'

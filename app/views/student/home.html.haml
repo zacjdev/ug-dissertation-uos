@@ -1,16 +1,20 @@
 !!!
-%div.container-fluid.card.shadow-sm.p-4.px-5.some{ style: 'background: rgb(232, 232, 232)' }
 // modules here
 %div.modules.py-5
+    %h1.text-center.mb-3= "My Teams"
     %div.container
         %div.row.row-cols-1.row-cols-sm-2.row-cols-md-3.g-3
-            %div.col
-                %div.card.shadow-sm
-                    %div.card-body
-                        %p.notestotal.p-1= "#{"X"} notes available"
-                        %a{:href => "course_modules/x"}
-                            %button.btn.btn-sm.btn-outline-primary
-                                %span.pl-1= "View Module"
-                                
-                        
-                    %div.colour
+            - @allteams.each do |team|
+                %div.col
+                    %div.card.shadow-sm
+                        - if @allteams.empty?
+                            %div.card-body
+                                %h5.card-title= "You are not in any teams"
+                        - else
+                            %div.card-body
+                                - @cmodule = @allmodules.find(team.name)
+                                %h5.card-title= "Team " + team.id.to_s
+                                %p.card-text= "Module: " + @cmodule.name
+                                %div.d-flex.justify-content-between.align-items-center
+                                    %div.btn-group
+                                        %a.btn.btn-sm.btn-outline-secondary{:href => "/student/team/" + team.id.to_s}= "View"

@@ -1,0 +1,131 @@
+%div.container-fluid
+    %div.row 
+        -# import material icons
+        %link{:rel => "stylesheet", :href => "https://fonts.googleapis.com/icon?family=Material+Icons"}
+
+        %nav#sidebarMenu.col-md-4.col-lg-2.d-md-block.card.sidebar.collapse{ style: 'background: rgb(222, 222, 222)' }
+            %div.position-sticky.pt-3
+                %ul.nav.flex-column 
+                    %li.nav-item
+                        %a.nav-link{:href => '/dashboard'}
+                            %span.material-icons.text-primary
+                                = 'home'
+                            %span.h3
+                                Home
+                            
+                            
+                    %li.nav-item
+                        %a.nav-link{:href => "/lecturer/modules"}
+                            %span.material-icons.text-primary
+                                = 'library_books'
+                            %span.h3
+                                Modules
+                    
+                    - if current_user.role == "lecturer"
+                        %li.nav-item
+                            %a.nav-link{:href => "/lecturer/surveys"}
+                                %span.material-icons.text-primary
+                                    = 'assignment'
+                                %span.h3
+                                    Surveys
+
+                        %li.nav-item
+                            %a.nav-link{:href => "/lecturer/checklists"}
+                                %span.material-icons.text-primary
+                                    = 'person_add'
+                                %span.h3
+                                    Checklists
+
+                        %li.nav-item
+                            %a.nav-link{:href => "/lecturer/users"}
+                                %span.material-icons.text-primary
+                                    = 'person_add'
+                                %span.h3
+                                    Users
+
+            %span.mb-2
+                    
+
+        %main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
+            %div.pt-3.pb-2.mb-3.border-bottom
+                %h1= "Manage Team ID " + @team.id.to_s
+            // horizontal menu
+            // details of current module using @cmodule
+            // view team details
+            %div.container-fluid.p-1
+                %div.row
+                    %div.col-12
+                        %table.table.table-hover
+                            %thead
+                                %tr
+                                    %th Member ID 
+                                    %th Member Name
+                            %tbody
+                                - @alllinks.each do |person|
+                                    %tr
+                                        %td= person.user_id
+                                        %td= @users.find(person.user_id).name
+            %div.container-fluid.p-1
+                %div.row
+                    %div.col-12
+                        %table.table.table-hover
+                            %thead
+                                %tr
+                                    %th Survey Responder 
+                                    %th Survey for
+                                    %th Q1
+                                    %th Q2
+                                    %th Q3
+                                    %th Q4
+                                    %th Q5
+                            %tbody
+                                - @responses.each do |response|
+                                    %tr
+                                        %td= @users.find(response.created_by).name
+                                        %td= @users.find(response.user_id).name
+                                        %td= response.question1response
+                                        %td= response.question2response
+                                        %td= response.question3response
+                                        %td= response.question4response
+                                        %td= response.question5response
+            %p="Bias Factors: " + @biasfactors.to_s
+            %p="Total points given to each student: " + @totalpointsgiven 
+            %h1="Multipliers"
+            - @teammembers.each do |member|
+                // convert to 3dp
+                
+                %p= @users.find(member.id).name + " " + @multipliers[member.id].to_f.round(3).to_s
+            %h1="Warnings"
+            %p=@abnormalMultiplierWarning.to_s 
+            %p=@zeroWarning.to_s
+
+            %h1="Facilitator logs for team"
+            %table.table.table-hover
+                %thead
+                    %tr
+                        %th Team ID
+                        %th Checklog Template
+                        %th Criteria met?
+                        %th Comment
+                        %th Created by user
+                %tbody
+                    - @checklogs.each do |checklog|
+                        %tr
+                            %td= checklog.team_id
+                            %td= checklog.checklist_template_id
+                            %td= checklog.questions_response
+                            %td= checklog.text_response
+                            %td= checklog.created_by
+            %h1="Reports for team"
+            %table.table.table-hover
+                %thead
+                    %tr
+                        %th Report
+                        %th Team
+                        %th Content
+                %tbody
+                    - @reports.each do |report|
+                        %tr
+                            %td= report.id
+                            %td= report.team_id
+                            %td= report.content

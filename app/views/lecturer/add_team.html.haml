@@ -1,0 +1,26 @@
+%div.container-fluid
+    %div.row 
+        -# import material icons
+        %link{:rel => "stylesheet", :href => "https://fonts.googleapis.com/icon?family=Material+Icons"}
+
+        // fix frontend
+        %nav#sidebarMenu.col-md-4.col-lg-2.d-md-block.card.sidebar.collapse{ style: 'background: rgb(222, 222, 222)' }
+            %div.position-sticky.pt-3
+                %ul.nav.flex-column 
+                    %li.nav-item
+                        %a.nav-link{:href => '/dashboard'}
+                            %span.material-icons.text-primary
+                                = 'home'
+                            %span.h3
+                                Home
+        
+        // simple form for adding a team
+        = simple_form_for(@team) do |t|
+
+            .form-inputs
+                // list every module id using @cmodules and @cmodule.id
+                = t.input :name, collection: @cmodule_ids, label: "Module ID"
+               
+
+            .form-actions
+                = t.button :submit, class: 'btn btn-primary'

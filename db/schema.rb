@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_07_142003) do
+ActiveRecord::Schema.define(version: 2023_05_06_183245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,33 @@ ActiveRecord::Schema.define(version: 2023_04_07_142003) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "checklist_responses", force: :cascade do |t|
+    t.integer "checklist_template_id"
+    t.integer "created_by"
+    t.boolean "questions_response"
+    t.string "text_response"
+  end
+
+  create_table "checklist_templates", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "questions"
+  end
+
+  create_table "checklists", force: :cascade do |t|
+    t.integer "checklist_template_id"
+    t.integer "created_by"
+    t.boolean "questions_response"
+    t.string "text_response"
+  end
+
+  create_table "checklogs", force: :cascade do |t|
+    t.integer "checklist_template_id"
+    t.integer "created_by"
+    t.boolean "questions_response"
+    t.string "text_response"
+    t.integer "team_id"
+  end
+
   create_table "cmodules", force: :cascade do |t|
     t.string "name"
     t.string "code"
@@ -69,6 +96,12 @@ ActiveRecord::Schema.define(version: 2023_04_07_142003) do
     t.index ["author_id"], name: "index_posts_on_author_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.integer "team_id"
+    t.string "content"
+    t.integer "created_by_user_id"
+  end
+
   create_table "sessions", id: :serial, force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -77,6 +110,31 @@ ActiveRecord::Schema.define(version: 2023_04_07_142003) do
     t.string "cas_ticket"
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "survey_responses", force: :cascade do |t|
+    t.integer "team_id"
+    t.integer "user_id"
+    t.string "question1response"
+    t.string "question2response"
+    t.string "question3response"
+    t.string "question4response"
+    t.string "question5response"
+    t.string "created_by"
+  end
+
+  create_table "survey_templates", force: :cascade do |t|
+    t.string "question1"
+    t.string "question2"
+    t.string "question3"
+    t.string "question4"
+    t.string "question5"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string "cmodule"
+    t.string "name"
+    t.integer "linkedtomod"
   end
 
   create_table "teams_users", id: false, force: :cascade do |t|
@@ -89,7 +147,7 @@ ActiveRecord::Schema.define(version: 2023_04_07_142003) do
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "role"
+    t.string "role", default: "default", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

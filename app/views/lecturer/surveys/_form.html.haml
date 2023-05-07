@@ -1,0 +1,13 @@
+= simple_form_for(@survey) do |m|
+
+    .form-inputs
+        = m.input :question1
+        = m.input :question2
+        = m.input :question3
+        = m.input :question4
+        = m.input :question5
+
+
+
+    .form-actions
+        = m.button :submit, class: 'btn btn-primary'

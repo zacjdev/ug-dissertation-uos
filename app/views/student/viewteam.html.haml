@@ -1,0 +1,28 @@
+%div.container-fluid
+    %div.row 
+        %main
+            %div.pt-3.pb-2.mb-3.border-bottom
+                %h1= "Team " + @team.id.to_s + " (" + @cmodule.name + ")"
+            
+            // report button
+            %div.container-fluid.p-1
+                %div.row
+                    %div.col-12
+                        %a.btn.btn-secondary{:href => "/report"}= "Report Problem"
+
+            %div.container-fluid.p-1
+                %div.row
+                    %div.col-12
+                        %table.table.table-hover
+                            %thead
+                                %tr
+                                    %th Team members:
+                                    %th Survey
+                            %tbody
+                                - @alllinks.each do |person|
+                                    %tr
+                                        %td= @users.find(person.user_id).name
+                                        %td
+                                            %a{:href => "/student/takesurvey/" + person.user_id.to_s}
+                                                %button.btn.btn-sm.btn-outline-primary
+                                                    %span.pl-3= "Take Survey"

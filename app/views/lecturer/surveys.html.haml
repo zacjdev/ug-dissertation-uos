@@ -9,7 +9,7 @@
             %div.container-fluid.p-1
                 %div.row
                     %div.col-12
-                        %a{:href => "/lecturer/surveys/add"}
+                        %a{:href => "/lecturer/addsurvey"}
                             %button.btn.btn-sm.btn-outline-primary
                                 %span.pl-3= "Add New Survey"
             // table of modules
@@ -19,8 +19,16 @@
                         %table.table.table-hover
                             %thead
                                 %tr
-                                    %th Survey Name
-                                    %th View
-                                    %th Edit
-                                    %th Delete
+                                    %th Q1 
+                                    %th Q2
+                                    %th Q3
+                                    %th Q4
+                                    %th Q5
                             %tbody
+                                - @surveytemplates.each do |survey|
+                                    %tr
+                                        %td= survey.question1 
+                                        %td= survey.question2
+                                        %td= survey.question3
+                                        %td= survey.question4
+                                        %td= survey.question5

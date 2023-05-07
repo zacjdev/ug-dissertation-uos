@@ -1,0 +1,8 @@
+= simple_form_for(@assign) do |a|
+
+  .form-inputs
+    = a.input :team_id, collection: @teams
+    = a.input :user_id, collection: @users
+
+  .form-actions
+    = a.button :submit, class: 'btn btn-primary'

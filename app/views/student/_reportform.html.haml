@@ -1,0 +1,9 @@
+= simple_form_for(@report) do |r|
+
+    .form-inputs
+        = r.input :content, label: 'Report Content', input_html: { class: 'form-control' }
+        = r.input :team_id , label: 'Team', collection: @allteamids, as: :select, input_html: { class: 'form-control' } 
+
+
+    .form-actions
+        = r.button :submit, class: 'btn btn-primary'

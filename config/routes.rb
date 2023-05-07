@@ -32,4 +32,38 @@ Rails.application.routes.draw do
 
   get "lecturer/modules", to: "lecturer#modules"
   resources 'cmodules', :only => [:new, :create, :show, :edit, :update, :destroy]
+
+  get "lecturer/modules/:id", to: "cmodules#show"
+
+  get "lecturer/add_team", to: "teams#new"
+  resources 'teams', :only => [:new, :create, :show, :edit, :update, :destroy]
+
+  get "lecturer/view_team/:id", to: "teams#show"
+
+  get "lecturer/assign_teams", to: "teams#assign"
+  post "user_team_linkers", to: "teams#assign_team"
+
+  resources 'user_team_linkers', :only => [:new, :create, :show, :edit, :update, :destroy]
+  resources 'reports', :only => [:new, :create, :show, :edit, :update, :destroy]
+
+  get "student/team/:id", to: "students#showteam"
+
+  get "report" => "reports#new"
+
+  get "lecturer/addsurvey", to: "survey_templates#new"
+
+  resources 'survey_templates', :only => [:new, :create, :show, :edit, :update, :destroy]
+
+  get "student/takesurvey/:id", to: "students#takesurvey"
+
+  resources 'survey_responses', :only => [:new, :create, :show, :edit, :update, :destroy]
+
+
+  get "lecturer/checklist_templates/new", to: "checklist_responses#new"
+
+  post "checklist_templates", to: "checklist_responses#create"
+
+  get "lecturer/checklog/:id", to: "checklog#new"
+  resources 'checklogs', :only => [:new, :show, :edit, :update, :destroy]
+  post "checklogs", to: "checklog#create"
 end

@@ -23,5 +23,25 @@
 #
 
 FactoryBot.define do
-
-end
+    factory :user do
+  
+      username { "Test user" }
+      email { "test@sheffield.ac.uk.com" }
+      password { "Password1!" }
+      password_confirmation { "Password1!" }
+      role { "" }
+  
+      factory :facilitator do
+        role { 'facilitator' }
+      end
+  
+      factory :notetaker do
+        role { 'notetaker' }
+      end
+  
+      factory :student do
+        role { 'student' }
+      end
+    end
+  end
+  

@@ -1,0 +1,19 @@
+= simple_form_for(@survey) do |m|
+    // h1 
+    %h1 Peer Assessment for #{@studentname} ID #{@studentid.id}
+    %p Being taken by #{current_user.name} 
+    .form-inputs
+        // Label with @surveytemplate questions. Input between 0 and 5 radio buttons
+        = m.input :user_id, as: :hidden, input_html: { value: @studentid.id.to_s }
+        = m.input :team_id, as: :hidden, input_html: { value: @teamid }
+        = m.input :created_by , as: :hidden, input_html: { value: current_user.id}
+        = m.input :question1response, label: @surveytemplate.question1 + "\n", collection: 0..5, as: :radio_buttons 
+        = m.input :question2response, label: @surveytemplate.question2, collection: 0..5, as: :radio_buttons
+        = m.input :question3response, label: @surveytemplate.question3, collection: 0..5, as: :radio_buttons
+        = m.input :question4response, label: @surveytemplate.question4, collection: 0..5, as: :radio_buttons
+        = m.input :question5response, label: @surveytemplate.question5, collection: 0..5, as: :radio_buttons
+
+
+
+    .form-actions
+        = m.button :submit, class: 'btn btn-primary'

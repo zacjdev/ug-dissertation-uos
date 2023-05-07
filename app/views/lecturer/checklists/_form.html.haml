@@ -1,0 +1,10 @@
+= simple_form_for(@checklist) do |m|
+
+    .form-inputs
+        = m.input :questions 
+        = m.input :name
+
+
+
+    .form-actions
+        = m.button :submit, class: 'btn btn-primary'

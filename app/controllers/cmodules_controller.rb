@@ -6,8 +6,10 @@ class CmodulesController < ApplicationController
     end
 
     def show
-        @cmodules = Cmodule.all
-        render :'lecturer/modules'
+        @cmodule = Cmodule.where(id: params[:id]).first
+        @teams = Team.where(name: params[:id])
+        @reports = Report.all
+        render :'lecturer/modules/view'
     end
 
     def create
@@ -20,6 +22,10 @@ class CmodulesController < ApplicationController
         end
     end
 
+    def add_team
+        @team = Team.new
+        render :'lecturer/add_team'
+    end
 
     def m_params 
         params.require(:cmodule).permit(:name)

@@ -1,17 +1,19 @@
 %div.container-fluid
     %div.row 
         = render 'nav'
-
+        
         %main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
+        
             %div.pt-3.pb-2.mb-3.border-bottom
                 %h1 Manage Modules
             // button to add new module
             %div.container-fluid.p-1
-                %div.row
-                    %div.col-12
-                        %a{:href => "/lecturer/modules/add"}
-                            %button.btn.btn-sm.btn-outline-primary
-                                %span.pl-3= "Add New Module"
+                - if current_user.role == "lecturer"
+                    %div.row
+                        %div.col-12
+                            %a{:href => "/lecturer/modules/add"}
+                                %button.btn.btn-sm.btn-outline-primary
+                                    %span.pl-3= "Add New Module"
             // table of modules
             %div.container-fluid.p-1
                 %div.row
@@ -32,9 +34,13 @@
                                         %td= "placeholder"
                                         %td= "placeholder"
                                         %td
-                                            %a{:href => "/lecturer/modules/#{cmodule.id}/edit"}
-                                                %button.btn.btn-sm.btn-outline-primary
-                                                    %span.pl-3= "Edit"
-                                            %a{:href => "/lecturer/modules/#{cmodule.id}/delete"}
-                                                %button.btn.btn-sm.btn-outline-danger
-                                                    %span.pl-3= "Delete"
+                                            %a{:href => "/lecturer/modules/#{cmodule.id}"}
+                                                %button.btn.btn-sm.btn-primary
+                                                    %span.pl-3= "Manage"
+                                            - if current_user.role == "lecturer"
+                                                %a{:href => "/lecturer/modules/#{cmodule.id}/edit"}
+                                                    %button.btn.btn-sm.btn-outline-primary
+                                                        %span.pl-3= "Edit"
+                                                %a{:href => "/lecturer/modules/#{cmodule.id}/delete"}
+                                                    %button.btn.btn-sm.btn-outline-danger
+                                                        %span.pl-3= "Delete"

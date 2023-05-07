@@ -18,27 +18,28 @@
                         = 'library_books'
                     %span.h3
                         Modules
-                    
-            %li.nav-item
-                %a.nav-link{:href => "/lecturer/surveys"}
-                    %span.material-icons.text-primary
-                        = 'assignment'
-                    %span.h3
-                        Surveys
-
             %li.nav-item
                 %a.nav-link{:href => "/lecturer/checklists"}
                     %span.material-icons.text-primary
                         = 'person_add'
                     %span.h3
                         Checklists
+            - if current_user.role == 'lecturer'
+                %li.nav-item
+                    %a.nav-link{:href => "/lecturer/surveys"}
+                        %span.material-icons.text-primary
+                            = 'assignment'
+                        %span.h3
+                            Surveys
 
-            %li.nav-item
-                %a.nav-link{:href => "/lecturer/users"}
-                    %span.material-icons.text-primary
-                        = 'person_add'
-                    %span.h3
-                        Users
+              
+
+                %li.nav-item
+                    %a.nav-link{:href => "/lecturer/users"}
+                        %span.material-icons.text-primary
+                            = 'person_add'
+                        %span.h3
+                            Users
 
             %span.mb-2
                     

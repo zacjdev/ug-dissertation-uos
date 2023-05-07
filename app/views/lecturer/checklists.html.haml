@@ -9,9 +9,7 @@
             %div.container-fluid.p-1
                 %div.row
                     %div.col-12
-                        %a{:href => "/lecturer/checklists/add"}
-                            %button.btn.btn-sm.btn-outline-primary
-                                %span.pl-3= "Add New Checklist"
+                        %a.btn.btn-sm.btn-outline-primary{:href => "/lecturer/checklist_templates/new"} Add New Checklist
             // table of modules
             %div.container-fluid.p-1
                 %div.row
@@ -20,7 +18,33 @@
                             %thead
                                 %tr
                                     %th Checklist Name
-                                    %th View
-                                    %th Edit
-                                    %th Delete
+                                    %th Questions
+                                    - if current_user.role == "facilitator"
+                                        %th Fill in
                             %tbody
+                                - @checklist_templates.each do |checklist|
+                                    %tr
+                                        %td= checklist.name
+                                        %td= checklist.questions
+                                        - if current_user.role == "facilitator"
+                                            %td
+                                                %a{:href => "/lecturer/checklog/#{checklist.id}"}
+                                                    %button.btn.btn-sm.btn-primary
+                                                        %span.pl-3= "Fill in"
+
+                        %table.table.table-hover
+                            %thead
+                                %tr
+                                    %th Team ID
+                                    %th Checklog Template
+                                    %th Criteria met?
+                                    %th Comment
+                                    %th Created by user
+                            %tbody
+                                - @checklogs.each do |checklog|
+                                    %tr
+                                        %td= checklog.team_id
+                                        %td= checklog.checklist_template_id
+                                        %td= checklog.questions_response
+                                        %td= checklog.text_response
+                                        %td= checklog.created_by

@@ -1,0 +1,16 @@
+= simple_form_for(@checklog) do |m|
+    .form-inputs
+        // current_user.id hidden
+        = m.input :created_by, as: :hidden, input_html: { value: current_user.id }
+        // first param in url, hidden
+        = m.input :checklist_template_id, as: :hidden, input_html: { value: @idofchecklist }
+        %h1= "Filling in checklist " + @checklist_template.name
+        = m.input :team_id, collection: @teams, label_method: :name, value_method: :id, include_blank: false
+        %p= @checklist_template.questions
+        %p= "Has the team fulfilled this criteria?"
+        = m.input :questions_response
+        = m.input :text_response
+
+
+    .form-actions
+        = m.button :submit, class: 'btn btn-primary'
