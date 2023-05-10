@@ -23,16 +23,12 @@
                                 %tr
                                     %th Module
                                     %th Teams 
-                                    %th Surveys 
-                                    %th Checklists 
                                     %th Manage
                             %tbody
                                 - @cmodules.each do |cmodule|
                                     %tr
-                                        %td= cmodule.name
-                                        %td= "placeholder"
-                                        %td= "placeholder"
-                                        %td= "placeholder"
+                                        %td= cmodule.name 
+                                        %td= @teams.where(:name => cmodule.id).count
                                         %td
                                             %a{:href => "/lecturer/modules/#{cmodule.id}"}
                                                 %button.btn.btn-sm.btn-primary

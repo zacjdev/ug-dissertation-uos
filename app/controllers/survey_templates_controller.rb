@@ -1,5 +1,5 @@
 class SurveyTemplatesController < ApplicationController
-
+    authorize_resource
     def new 
         @survey = SurveyTemplate.new
         render :'lecturer/surveys/new'

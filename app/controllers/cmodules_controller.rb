@@ -1,5 +1,5 @@
 class CmodulesController < ApplicationController
-
+    authorize_resource
     def new
         @mod = Cmodule.new
         render :'lecturer/modules/new'
@@ -8,6 +8,7 @@ class CmodulesController < ApplicationController
     def show
         @cmodule = Cmodule.where(id: params[:id]).first
         @teams = Team.where(name: params[:id])
+        @linkers = UserTeamLinker.all
         @reports = Report.all
         render :'lecturer/modules/view'
     end

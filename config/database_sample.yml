@@ -1,6 +1,6 @@
 development:
   adapter: postgresql
-  database: security_solution_dev
+  database: system_dev
   min_messages: warning
   
   # uncomment these lines if you are connected to postgres over the network stack
@@ -10,7 +10,7 @@ development:
 
 test:
   adapter: postgresql
-  database: security_solution_test
+  database: system_test
   min_messages: warning
 
   # uncomment these lines if you are connected to postgres over the network stack

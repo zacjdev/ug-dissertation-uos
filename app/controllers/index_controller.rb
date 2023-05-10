@@ -1,4 +1,5 @@
 class IndexController < ApplicationController
+
     def index
       if current_user.role == 'student'
         redirect_to '/home'

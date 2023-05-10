@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   before_action :find_user
-  # Task 7
   authorize_resource
 
   def edit 

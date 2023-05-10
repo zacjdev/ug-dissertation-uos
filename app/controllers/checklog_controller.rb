@@ -1,5 +1,5 @@
 class ChecklogController < ApplicationController
-    
+    authorize_resource
     def new 
         @checklog = Checklog.new
         @teams = Team.all

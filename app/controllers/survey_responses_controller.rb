@@ -1,5 +1,5 @@
 class SurveyResponsesController < ApplicationController
-
+    authorize_resource
     def new 
         @survey = SurveyResponse.new
         render :'lecturer/surveys/new'

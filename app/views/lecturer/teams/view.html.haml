@@ -8,38 +8,29 @@
                 %ul.nav.flex-column 
                     %li.nav-item
                         %a.nav-link{:href => '/dashboard'}
-                            %span.material-icons.text-primary
-                                = 'home'
                             %span.h3
                                 Home
                             
                             
                     %li.nav-item
                         %a.nav-link{:href => "/lecturer/modules"}
-                            %span.material-icons.text-primary
-                                = 'library_books'
                             %span.h3
                                 Modules
                     
                     - if current_user.role == "lecturer"
                         %li.nav-item
                             %a.nav-link{:href => "/lecturer/surveys"}
-                                %span.material-icons.text-primary
-                                    = 'assignment'
                                 %span.h3
                                     Surveys
 
                         %li.nav-item
                             %a.nav-link{:href => "/lecturer/checklists"}
-                                %span.material-icons.text-primary
-                                    = 'person_add'
+                               
                                 %span.h3
                                     Checklists
 
                         %li.nav-item
                             %a.nav-link{:href => "/lecturer/users"}
-                                %span.material-icons.text-primary
-                                    = 'person_add'
                                 %span.h3
                                     Users
 
@@ -65,6 +56,58 @@
                                     %tr
                                         %td= person.user_id
                                         %td= @users.find(person.user_id).name
+            
+            %h1="Results"
+            - @teammembers.each do |member|
+                // convert to 3dp
+                %p= @users.find(member.id).name + " - Given " + @totalpointsgiven[member.id].to_s + "/" + (@teammembers.count * 25).to_s + " points - Multiplier: " + @multipliers[member.id].to_f.round(3).to_s
+            %h1="Reports for team"
+
+            %table.table.table-hover
+                %thead
+                    %tr
+                        %th Report
+                        %th Team
+                        %th Content
+                %tbody
+                    - @reports.each do |report|
+                        %tr
+                            %td= report.id
+                            %td= report.team_id
+                            %td= report.content
+                    - if @reports.count == 0
+                        %tr
+                            %td= "No reports for this team yet"
+            %h1="Warnings"
+            - if @abnormalMultiplierWarning.to_s != "" && @zeroWarning.to_s != ""
+                %p= @abnormalMultiplierWarning.to_s
+            - else 
+                %p= "No warnings"
+           
+
+
+            %h1="Facilitator logs for team"
+            %table.table.table-hover
+                %thead
+                    %tr
+                        %th Team ID
+                        %th Checklog Template
+                        %th Criteria met?
+                        %th Comment
+                        %th Created by user
+                %tbody
+                    - @checklogs.each do |checklog|
+                        %tr
+                            %td= checklog.team_id
+                            %td= checklog.checklist_template_id
+                            %td= checklog.questions_response
+                            %td= checklog.text_response
+                            %td= checklog.created_by
+                    - if @checklogs.count == 0
+                        %tr
+                            %td= "No logs submitted for this team yet"
+            
+            %h1="Responses for team"
             %div.container-fluid.p-1
                 %div.row
                     %div.col-12
@@ -89,43 +132,3 @@
                                         %td= response.question4response
                                         %td= response.question5response
             %p="Bias Factors: " + @biasfactors.to_s
-            %p="Total points given to each student: " + @totalpointsgiven 
-            %h1="Multipliers"
-            - @teammembers.each do |member|
-                // convert to 3dp
-                
-                %p= @users.find(member.id).name + " " + @multipliers[member.id].to_f.round(3).to_s
-            %h1="Warnings"
-            %p=@abnormalMultiplierWarning.to_s 
-            %p=@zeroWarning.to_s
-
-            %h1="Facilitator logs for team"
-            %table.table.table-hover
-                %thead
-                    %tr
-                        %th Team ID
-                        %th Checklog Template
-                        %th Criteria met?
-                        %th Comment
-                        %th Created by user
-                %tbody
-                    - @checklogs.each do |checklog|
-                        %tr
-                            %td= checklog.team_id
-                            %td= checklog.checklist_template_id
-                            %td= checklog.questions_response
-                            %td= checklog.text_response
-                            %td= checklog.created_by
-            %h1="Reports for team"
-            %table.table.table-hover
-                %thead
-                    %tr
-                        %th Report
-                        %th Team
-                        %th Content
-                %tbody
-                    - @reports.each do |report|
-                        %tr
-                            %td= report.id
-                            %td= report.team_id
-                            %td= report.content

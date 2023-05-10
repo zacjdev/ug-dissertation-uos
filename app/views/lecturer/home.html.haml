@@ -1,8 +1,11 @@
-%div.container-fluid
-    %div.row 
-        = render 'nav'
+// role = lecturer or facilitator
+- if current_user.role == "lecturer" || current_user.role == "facilitator"
+    %div.container-fluid
+        %div.row 
+            = render 'nav'
 
-        %main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
-            %div.pt-3.pb-2.mb-3.border-bottom
-                %h1 Lecturer Dashboard Home
-            %h3.mb-4 Welcome to the lecturer dashboard
+            %main.col-md-9.ms-sm-auto.col-lg-10.px-md-4
+                %div.pt-3.pb-2.mb-3.border-bottom
+                    %h1 Staff Dashboard Home
+                %h3.mb-4 Welcome to the staff dashboard
+                

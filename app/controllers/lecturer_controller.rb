@@ -4,6 +4,7 @@ class LecturerController < ApplicationController
     end
 
     def modules
+        @teams = Team.all
         @cmodules = Cmodule.all
         render :'lecturer/modules'
     end

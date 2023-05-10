@@ -1,5 +1,5 @@
 class ChecklistResponsesController < ApplicationController
-
+    authorize_resource
     def new 
         @checklist = ChecklistTemplate.new
         render :'lecturer/checklists/new'

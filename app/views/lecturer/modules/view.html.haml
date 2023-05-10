@@ -70,14 +70,14 @@
                             %thead
                                 %tr
                                     %th Team ID
-                                    %th Module ID
+                                    %th Members
                                     %th View Team
                             %tbody
                                 - @teams.each do |team|
                                     
                                     %tr
                                         %td= team.id 
-                                        %td= team.name
+                                        %td= @linkers.where(:team_id => team.id).count
                                         %td= link_to 'View Team', "/lecturer/view_team/" + team.id.to_s, :class => "btn btn-sm btn-outline-primary"
                                 // REPORTS
                         %table.table.table-hover
